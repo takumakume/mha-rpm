@@ -1,0 +1,6 @@
+centos6:
+  dockerfile: Dockerfile.centos6
+  build: .
+  command: cp -a /root/rpmbuild/RPMS/noarch/*.rpm /tmp/
+  volumes:
+    - .:/tmp:rw
