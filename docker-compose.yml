@@ -4,3 +4,9 @@ centos6:
   command: cp -rv /root/rpmbuild/RPMS/noarch /tmp/RPMS/centos6
   volumes:
     - .:/tmp:rw
+centos7:
+  dockerfile: Dockerfile.centos7
+  build: .
+  command: cp -rv /root/rpmbuild/RPMS/noarch /tmp/RPMS/centos7
+  volumes:
+    - .:/tmp:rw

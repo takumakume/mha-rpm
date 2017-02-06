@@ -26,6 +26,7 @@ mha4mysql-manager-0.57-0.el6.noarch.rpm mha4mysql-node-0.57-0.el6.noarch.rpm
 ### Supported OS
 
 - centos6
+- centos7
 
 ### Author
 
