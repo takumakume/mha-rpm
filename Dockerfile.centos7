@@ -46,3 +46,6 @@ RUN mv mha4mysql-node /root/mha4mysql-node-${MHA_NODE_VERSION}
 RUN tar zcf rpmbuild/SOURCES/mha4mysql-node-${MHA_NODE_VERSION}.tar.gz mha4mysql-node-${MHA_NODE_VERSION}
 
 RUN rpmbuild -ba /root/rpmbuild/SPECS/masterha_node.spec
+
+RUN mv rpmbuild/RPMS/noarch/mha4mysql-manager-${MHA_MANAGER_VERSION}-0.el7.centos.noarch.rpm rpmbuild/RPMS/noarch/mha4mysql-manager-${MHA_MANAGER_VERSION}-0.el7.noarch.rpm
+RUN mv rpmbuild/RPMS/noarch/mha4mysql-node-${MHA_NODE_VERSION}-0.el7.centos.noarch.rpm rpmbuild/RPMS/noarch/mha4mysql-node-${MHA_NODE_VERSION}-0.el7.noarch.rpm
