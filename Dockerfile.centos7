@@ -10,11 +10,16 @@ RUN yum update -y
 RUN yum install -y git \
                    make \
                    rpmdevtools \
-                   cpan \
-                   perl-ExtUtils-MakeMaker
-
-RUN curl -Lk http://xrl.us/cpanm -o /usr/bin/cpanm && chmod +x /usr/bin/cpanm && cpanm inc::Module::Install
-
+                   gcc \
+                   perl-ExtUtils-MakeMaker \
+                   perl-Config-Tiny \
+                   perl-DBI \
+                   perl-Test-Without-Module \
+                   perl-Params-ValidationCompiler \
+                   perl-Log-Dispatch \
+                   perl-Parallel-ForkManager \
+                   perl-DBD-mysql \
+                   perl-Module-Install
 WORKDIR /root
 
 RUN rpmdev-setuptree
@@ -23,7 +28,6 @@ RUN git clone https://github.com/yoshinorim/mha4mysql-manager.git
 
 WORKDIR /root/mha4mysql-manager
 RUN git reset --hard ${MHA_MANAGER_COMMIT_HASH}
-RUN perl Makefile.PL | cpanm || true
 
 WORKDIR /root
 RUN cp -p mha4mysql-manager/rpm/masterha_manager.spec rpmbuild/SPECS/masterha_manager.spec
@@ -37,7 +41,6 @@ RUN git clone https://github.com/yoshinorim/mha4mysql-node.git
 
 WORKDIR /root/mha4mysql-node
 RUN git reset --hard ${MHA_NODE_COMMIT_HASH}
-RUN perl Makefile.PL | cpanm || true
 
 WORKDIR /root
 RUN cp -p mha4mysql-node/rpm/masterha_node.spec rpmbuild/SPECS/masterha_node.spec
@@ -47,5 +50,3 @@ RUN tar zcf rpmbuild/SOURCES/mha4mysql-node-${MHA_NODE_VERSION}.tar.gz mha4mysql
 
 RUN rpmbuild -ba /root/rpmbuild/SPECS/masterha_node.spec
 
-RUN mv rpmbuild/RPMS/noarch/mha4mysql-manager-${MHA_MANAGER_VERSION}-0.el7.centos.noarch.rpm rpmbuild/RPMS/noarch/mha4mysql-manager-${MHA_MANAGER_VERSION}-0.el7.noarch.rpm
-RUN mv rpmbuild/RPMS/noarch/mha4mysql-node-${MHA_NODE_VERSION}-0.el7.centos.noarch.rpm rpmbuild/RPMS/noarch/mha4mysql-node-${MHA_NODE_VERSION}-0.el7.noarch.rpm
